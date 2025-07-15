@@ -29,6 +29,7 @@ export async function POST(req) {
 	});
 
 	groupCreated.members.push(user._id)
+	await groupCreated.save()
 
 	if (!groupCreated)
 		return NextResponse.json(

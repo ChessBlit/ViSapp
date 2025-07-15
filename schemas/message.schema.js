@@ -6,7 +6,5 @@ export const messageSchema = z.object({
 	group: z.string().refine(val => mongoose.Types.ObjectId.isValid(val), {
 		message: "Invalid ObjectId",
 	}).optional(),
-    to: z.string().refine(val => mongoose.Types.ObjectId.isValid(val), {
-		message: "Invalid ObjectId",
-	}).optional(),
+    to: z.string().optional()
 });

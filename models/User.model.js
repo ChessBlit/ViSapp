@@ -14,16 +14,6 @@ const userSchema = new Schema(
 			type: String,
 			required: true,
 		},
-		messages: {
-			required: true,
-			type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Message" }],
-			default: [],
-		},
-		recievedMessages: {
-			required: true,
-			type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Message" }],
-			default: [],
-		},
 		phone: {
 			type: String,
 			unique: true,

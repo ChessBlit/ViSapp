@@ -58,7 +58,7 @@ export async function POST(_, { params }) {
 			{ status: 404 }
 		);
 
-	const messages = await Message.find({ group: groupId }).lean();
+	const messages = await Message.find({ group: groupId }).sort({createdAt: 1}).lean();
 
 	return NextResponse.json({ success: true, messages }, { status: 200 });
 }

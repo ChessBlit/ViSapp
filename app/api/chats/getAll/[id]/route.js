@@ -35,10 +35,26 @@ export async function POST(_, { params }) {
 			{ status: 404 }
 		);
 
-	const messages = await Message.find({ to: user._id, owner: otherUser._id });
+	const othersMessages = await Message.find({
+		to: user._id,
+		owner: otherUser._id,
+	}).lean();
+
+	const myMessages = await Message.find({
+		to: otherUser._id,
+		owner: user._id,
+	}).lean();
+
+	const allMessages = [...othersMessages, ...myMessages].sort(
+		(a, b) => new Date(a.createdAt) - new Date(b.createdAt) 
+	);
 
 	return NextResponse.json(
-		{ success: true, messages, message: "Chat fetched successfully" },
+		{
+			success: true,
+			messages: allMessages,
+			message: "Chat fetched successfully",
+		},
 		{ status: 200 }
 	);
 }
