@@ -41,7 +41,7 @@ export async function POST(req) {
 
 	if (!user)
 		return NextResponse.json(
-			{ success: false, message: "User not found" },
+			{ success: false, message: "User not found", fields: ["usernameOrPhone"] },
 			{ status: 404 }
 		);
 
@@ -53,7 +53,7 @@ export async function POST(req) {
 
 	if (!isPasswordCorrect)
 		return NextResponse.json(
-			{ success: false, message: "Invalid user credentials" },
+			{ success: false, message: "Invalid user credentials", fields: ["password", "usernameOrPhone"] },
 			{ status: 401 }
 		);
 

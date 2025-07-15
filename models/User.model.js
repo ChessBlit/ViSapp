@@ -1,14 +1,13 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken"
-
+import jwt from "jsonwebtoken";
 
 const userSchema = new Schema(
 	{
 		username: {
 			type: String,
 			required: true,
-			unique: true
+			unique: true,
 		},
 		fullname: {
 			type: String,
@@ -27,10 +26,14 @@ const userSchema = new Schema(
 			type: String,
 			required: true,
 		},
+		contacts: {
+			type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+			default: [],
+		},
 		refreshToken: {
-            type: String,
-            index: true
-        }
+			type: String,
+			index: true,
+		},
 	},
 	{ timestamps: true }
 );

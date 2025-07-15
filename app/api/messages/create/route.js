@@ -7,6 +7,7 @@ import { treeifyError } from "zod";
 import { User } from "@/models/User.model";
 import { cookies } from "next/headers";
 import mongoose from "mongoose";
+import { pusherServer } from "@/lib/pusherServer";
 
 export async function POST(req) {
 	await connectDB();
@@ -51,12 +52,14 @@ export async function POST(req) {
 			);
 		}
 
-		await Message.create({
+		const savedMessage = await Message.create({
 			owner: user._id,
 			content,
 			to: toUser._id,
 		});
-
+		await pusherServer.trigger("chat-channel", "new-message", {
+			message: savedMessage,
+		});
 	} else {
 		if (!mongoose.Types.ObjectId.isValid(group)) {
 			return NextResponse.json(

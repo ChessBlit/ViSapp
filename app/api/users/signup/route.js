@@ -15,13 +15,22 @@ export async function POST(req) {
 
 	console.log(username, phone, fullname, password);
 
-	const doesUserExist = await User.findOne({
-		$or: [{username}, {phone}]
+	const doesUserExistByUsername = await User.findOne({
+		username
+	}).lean();
+	const doesUserExistByPhone = await User.findOne({
+		phone
 	}).lean();
 
-	if (doesUserExist) {
+	if (doesUserExistByUsername) {
 		return NextResponse.json(
-			{ success: false, message: "User already exists" },
+			{ success: false, message: "User already exists", fields: ["username"] },
+			{ status: 409 }
+		);
+	}
+	if (doesUserExistByPhone) {
+		return NextResponse.json(
+			{ success: false, message: "User already exists", fields: ["phone"] },
 			{ status: 409 }
 		);
 	}
