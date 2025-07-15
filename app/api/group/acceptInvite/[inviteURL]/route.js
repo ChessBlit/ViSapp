@@ -43,7 +43,9 @@ export async function POST(_, { params }) {
     const group = await Group.findById(invite.invitedToGroup)
 
     if (!group) return NextResponse.json({success: false, mesage: "Group not found"}, {status: 404});
-
+	
+	const userAlreadyInGroup = await group.members.includes(user._id)
+	if (userAlreadyInGroup) return NextResponse.json({success: false, message: "User already in group"}, {status: 409})
     
     group.members.push(user._id)
     await group.save()
