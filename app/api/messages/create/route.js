@@ -11,7 +11,7 @@ import mongoose from "mongoose";
 export async function POST(req) {
 	await connectDB();
 
-	const refreshToken = cookies().get("refreshToken")?.value;
+	const refreshToken = (await cookies()).get("refreshToken")?.value;
 	if (!refreshToken)
 		return NextResponse.json(
 			{ success: false, message: "User not logged in" },

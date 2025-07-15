@@ -47,6 +47,8 @@ export async function POST(req, { params }) {
 		);
 	}
 
+	if (!group.members.includes(user._id)) return NextResponse.json({success: false, message: "User not is group. You need to be in the group to make an invitaion link"}, {status: 401})
+
 	// Validate input
 	if (!idOrUsername) {
 		return NextResponse.json(
