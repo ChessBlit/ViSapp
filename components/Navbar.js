@@ -72,7 +72,6 @@ const Navbar = () => {
 				return;
 			}
 			window.location.reload();
-			console.log(result);
 		} catch (error) {
 			console.error(error);
 		}

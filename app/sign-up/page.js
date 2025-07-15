@@ -42,7 +42,6 @@ const SignUpPage = () => {
 		try {
 			const response = await fetch("/api/users/signup", requestOptions);
 			const result = await response.json();
-			console.log(result);
 			if (!response.ok) {
 				// Show server error on a specific field or globally
 				result.fields.map(field => {

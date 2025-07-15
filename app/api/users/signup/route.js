@@ -13,7 +13,6 @@ export async function POST(req) {
 	}
 	const { username, phone, fullname, password } = parsed.data;
 
-	console.log(username, phone, fullname, password);
 
 	const doesUserExistByUsername = await User.findOne({
 		username

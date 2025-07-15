@@ -25,7 +25,6 @@ const page = () => {
 			const result = await response.json();
 			setContacts(result.contacts);
 			setFilteredContacts(result.contacts);
-			console.log(result);
 			return result;
 		} catch (error) {
 			console.error(error);

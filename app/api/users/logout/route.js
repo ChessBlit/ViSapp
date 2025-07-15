@@ -18,7 +18,6 @@ export async function POST() {
 	user.refreshToken = undefined;
 	await user.save({ validiateBeforeSave: false });
 
-	console.log(user);
 
 	cookieMonster.delete("refreshToken");
 	cookieMonster.delete("accessToken");

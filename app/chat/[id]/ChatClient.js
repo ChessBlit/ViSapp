@@ -48,7 +48,6 @@ const ChatClient = ({ userString }) => {
 				requestOptions
 			);
 			const result = await response.json();
-			console.log(result);
 			form.setValue("content", "");
 			fetchMessages();
 		} catch (error) {
@@ -68,7 +67,6 @@ const ChatClient = ({ userString }) => {
 				requestOptions
 			);
 			const result = await response.json();
-			console.log(result);
 			setMessages(result.messages);
 		} catch (error) {
 			console.error(error);
@@ -127,7 +125,6 @@ const ChatClient = ({ userString }) => {
 											: "justify-end"
 									}`}
 								>
-									{console.log(typeof message._id)}
 
 									{/* Message Bubble */}
 									<div

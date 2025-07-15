@@ -39,8 +39,6 @@ export async function POST(_, { params }) {
 	const group = await Group.findById(groupId);
 
 	const isMember = group.members.includes(user._id);
-	console.log(isMember);
-	console.log(group.members);
 
 	if (!isMember)
 		return NextResponse.json(
