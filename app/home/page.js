@@ -4,7 +4,7 @@ import React from "react";
 
 const Home = () => {
 	return (
-		<main>
+		<main className="py-20">
 			<Link href={"/login"}>
 				<Button variant={"outline"}>Log in</Button>
 			</Link>

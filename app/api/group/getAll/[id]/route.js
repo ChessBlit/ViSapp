@@ -38,6 +38,12 @@ export async function POST(_, { params }) {
 		);
 	const group = await Group.findById(groupId);
 
+	if (!group)
+		return NextResponse.json(
+			{ success: false, message: "Group not found" },
+			{ status: 404 }
+		);
+
 	const isMember = group.members.includes(user._id);
 
 	if (!isMember)
@@ -56,7 +62,10 @@ export async function POST(_, { params }) {
 			{ status: 404 }
 		);
 
-	const messages = await Message.find({ group: groupId }).sort({createdAt: 1}).lean();
+	const messages = await Message.find({ group: groupId })
+		.sort({ createdAt: 1 })
+		.populate("owner", "username fullname")
+		.lean();
 
 	return NextResponse.json({ success: true, messages }, { status: 200 });
 }
