@@ -53,7 +53,7 @@ export async function POST(_, { params }) {
     await Invite.deleteOne({url: inviteURL})
 
 	return NextResponse.json(
-		{ invite, success: true, message: "Invite accepted successfully" },
+		{ invite, success: true, message: "Invite accepted successfully", redirectURL: group._id },
 		{ status: 200 }
 	);
 }

@@ -82,8 +82,11 @@ export async function POST(req) {
 		});
 
 		wholeGroup.messages.push(message._id);
-
 		await wholeGroup.save();
+
+		await pusherServer.trigger("chat-channel", "new-message", {
+			message: message,
+		});
 	}
 
 	return NextResponse.json(

@@ -13,7 +13,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { pusherClient } from "@/lib/pusherClient";
-import { LucideArrowDown, Send } from "lucide-react";
+import { Send, User } from "lucide-react";
+import Link from "next/link";
 
 const ChatClient = ({ userString }) => {
 	const [messages, setMessages] = useState([]);
@@ -100,9 +101,23 @@ const ChatClient = ({ userString }) => {
 	}, [messages]);
 
 	return (
-		<main className="min-h-screen bg-gradient-to-br pt-10 from-slate-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 flex flex-col">
+		<main className="min-h-screen pt-15 bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 flex flex-col">
 			{/* Header */}
+			<div className="sticky top-0 z-50 bg-white dark:bg-gray-800 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700 px-4 sm:px-6 py-3 shadow-sm">
+				<div className="max-w-5xl mx-auto flex items-center justify-between">
+					<Link href={"/details/" + user._id} className="flex items-center space-x-3">
+						<div className="p-2 bg-gradient-to-r from-green-500 to-green-600 dark:from-green-600 dark:to-green-700 rounded-xl shadow-lg">
+							<User />
+						</div>
+						<div>
+							<h1 className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-white">
+								{user.fullname}
+							</h1>
+						</div>
+					</Link>
 
+				</div>
+			</div>
 			{/* Messages Container */}
 			<div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 sm:py-8">
 				<div className="max-w-5xl mx-auto space-y-1 sm:space-y-2">
@@ -125,7 +140,6 @@ const ChatClient = ({ userString }) => {
 											: "justify-end"
 									}`}
 								>
-
 									{/* Message Bubble */}
 									<div
 										className={`relative px-4 sm:px-5 py-2.5 sm:py-3 max-w-xs sm:max-w-md lg:max-w-2xl shadow-sm transition-all duration-200 hover:shadow-md ${
@@ -163,7 +177,7 @@ const ChatClient = ({ userString }) => {
 											>
 												{isCurrentUser
 													? "You"
-													: user.username}
+													: user.fullname}
 											</div>
 										)}
 
@@ -180,7 +194,9 @@ const ChatClient = ({ userString }) => {
 													: "text-gray-400 dark:text-gray-500"
 											}`}
 										>
-											{new Date(message.createdAt).toLocaleTimeString([], {
+											{new Date(
+												message.createdAt
+											).toLocaleTimeString([], {
 												hour: "2-digit",
 												minute: "2-digit",
 											})}
@@ -191,13 +207,6 @@ const ChatClient = ({ userString }) => {
 						})}
 				</div>
 			</div>
-
-			<span
-				className="p-1 rounded-full bg-slate-700 fixed bottom-25 right-2"
-				onClick={scrollToBottom}
-			>
-				<LucideArrowDown className="w-[1.3rem] h-[1.3rem]" />
-			</span>
 
 			<div ref={bottomRef} className="mt-18" />
 			{/* Input Form */}

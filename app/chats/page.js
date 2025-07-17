@@ -38,8 +38,12 @@ const page = () => {
 	useEffect(() => {
 		const filtered = contacts.filter(
 			(contact) =>
-				contact.fullname.toLowerCase().includes(searchTerm.toLowerCase()) ||
-				contact.username.toLowerCase().includes(searchTerm.toLowerCase())
+				contact.fullname
+					.toLowerCase()
+					.includes(searchTerm.toLowerCase()) ||
+				contact.username
+					.toLowerCase()
+					.includes(searchTerm.toLowerCase())
 		);
 		setFilteredContacts(filtered);
 	}, [searchTerm, contacts]);
@@ -54,10 +58,24 @@ const page = () => {
 							<Users className="w-6 h-6 text-white" />
 						</div>
 						<div>
-							<h1 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white">Contacts</h1>
+							<h1 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white">
+								Contacts
+							</h1>
 							<p className="text-gray-500 dark:text-gray-400 text-sm">
-								{filteredContacts.length} {filteredContacts.length === 1 ? 'contact' : 'contacts'} available
+								{filteredContacts.length}{" "}
+								{filteredContacts.length === 1
+									? "contact"
+									: "contacts"}{" "}
+								available
 							</p>
+						</div>
+						<div className="flex justify-end w-full">
+							<Link
+								href={"/groups"}
+								className="rounded-full p-2 bg-blue-600 text-white"
+							>
+								<Users className="w-6 h-6 text-white" />
+							</Link>
 						</div>
 					</div>
 
@@ -76,7 +94,7 @@ const page = () => {
 			</div>
 
 			{/* Contacts List */}
-			<div className="px-4 sm:px-6 py-6">
+			<div className="px-4 sm:px-6 py-6 max-[400px]:flex justify-center items-center">
 				<div className="max-w-4xl mx-auto">
 					{filteredContacts.length === 0 ? (
 						<div className="text-center py-12">
@@ -84,24 +102,33 @@ const page = () => {
 								<Users className="w-8 h-8 text-gray-400 dark:text-gray-500" />
 							</div>
 							<h3 className="text-lg font-medium text-gray-800 dark:text-white mb-2">
-								{searchTerm ? "No contacts found" : "No contacts yet"}
+								{searchTerm
+									? "No contacts found"
+									: "No contacts yet"}
 							</h3>
 							<p className="text-gray-500 dark:text-gray-400">
-								{searchTerm ? "Try adjusting your search terms" : "Your contacts will appear here"}
+								{searchTerm
+									? "Try adjusting your search terms"
+									: "Your contacts will appear here"}
 							</p>
 						</div>
 					) : (
 						<div className="grid gap-3 sm:gap-4">
-							{filteredContacts.map((contact, index) => (
-								<Link key={contact._id} href={"/chat/" + contact._id}>
-									<div className="group relative bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-5 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 shadow-sm hover:shadow-md transition-all duration-200 transform hover:-translate-y-1 hover:scale-[1.02]">
+							{filteredContacts.map((contact) => (
+								<Link
+									key={contact._id}
+									href={"/chat/" + contact._id}
+								>
+									<div className="group relative bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-5 border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 shadow-sm hover:shadow-md transition-all duration-200">
 										{/* Contact Info */}
 										<div className="flex items-center justify-between">
 											<div className="flex items-center space-x-4">
 												{/* Avatar */}
 												<div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 rounded-full flex items-center justify-center shadow-lg">
 													<span className="text-white font-bold text-lg sm:text-xl">
-														{contact.fullname.charAt(0).toUpperCase()}
+														{contact.fullname
+															.charAt(0)
+															.toUpperCase()}
 													</span>
 												</div>
 
@@ -124,7 +151,6 @@ const page = () => {
 												<ChevronRight className="w-5 h-5 text-gray-400 dark:text-gray-500" />
 											</div>
 										</div>
-
 
 										{/* Hover Glow Effect */}
 										<div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/5 to-purple-500/5 dark:from-blue-400/5 dark:to-purple-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>

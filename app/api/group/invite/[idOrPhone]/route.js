@@ -10,13 +10,13 @@ import mongoose from "mongoose";
 export async function POST(req, { params }) {
 	await connectDB();
 
-	const idOrUsername = (await params)?.idOrUsername;
+	const idOrPhone = (await params)?.idOrPhone;
 	const { groupId } = await req.json();
 
 	// Validate groupId
 	if (!mongoose.Types.ObjectId.isValid(groupId)) {
 		return NextResponse.json(
-			{ success: false, message: "Invalid group ID" },
+			{ success: false, message: "Invalid group ID", fields: ["phone"] },
 			{ status: 400 }
 		);
 	}
@@ -25,16 +25,16 @@ export async function POST(req, { params }) {
 	const group = await Group.findById(groupId);
 	if (!group) {
 		return NextResponse.json(
-			{ success: false, message: "Group not found" },
+			{ success: false, message: "Group not found", fields: ["phone"] },
 			{ status: 404 }
 		);
 	}
 
 	// Check logged-in user
-	const refreshToken = cookies().get("refreshToken")?.value;
+	const refreshToken = (await cookies()).get("refreshToken")?.value;
 	if (!refreshToken) {
 		return NextResponse.json(
-			{ success: false, message: "User is not logged in" },
+			{ success: false, message: "User is not logged in", fields: ["phone"] },
 			{ status: 401 }
 		);
 	}
@@ -42,28 +42,28 @@ export async function POST(req, { params }) {
 	const user = await User.findOne({ refreshToken }).lean();
 	if (!user) {
 		return NextResponse.json(
-			{ success: false, message: "User not found" },
+			{ success: false, message: "User not found", fields: ["phone"] },
 			{ status: 404 }
 		);
 	}
 
-	if (!group.members.includes(user._id)) return NextResponse.json({success: false, message: "User not is group. You need to be in the group to make an invitaion link"}, {status: 401})
+	if (!group.members.includes(user._id)) return NextResponse.json({success: false, message: "User is not in the group. You need to be in the group to make an invitaion link"}, {status: 401})
 
 	// Validate input
-	if (!idOrUsername) {
+	if (!idOrPhone || idOrPhone.length === 0) {
 		return NextResponse.json(
-			{ success: false, message: "id or username not provided" },
+			{ success: false, message: "id or phone not provided", fields: ["phone"] },
 			{ status: 400 }
 		);
 	}
 
-	// Safe handling for ID or username
-	const isValidObjectId = mongoose.Types.ObjectId.isValid(idOrUsername);
+	// Safe handling for ID or phone
+	const isValidObjectId = mongoose.Types.ObjectId.isValid(idOrPhone);
 	const inviteUser = await User.findOne({
 		$or: [
-			{ username: idOrUsername },
+			{ phone: idOrPhone },
 			...(isValidObjectId
-				? [{ _id: new mongoose.Types.ObjectId(idOrUsername) }]
+				? [{ _id: new mongoose.Types.ObjectId(idOrPhone) }]
 				: []),
 		],
 	});
@@ -73,6 +73,7 @@ export async function POST(req, { params }) {
 			{
 				success: false,
 				message: "The user you are inviting was not found",
+				fields: ["phone"]
 			},
 			{ status: 404 }
 		);
