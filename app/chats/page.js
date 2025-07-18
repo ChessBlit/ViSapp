@@ -3,7 +3,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Search, Users, ChevronRight } from "lucide-react";
 
-const page = () => {
+const ChatPage = () => {
 	const [contacts, setContacts] = useState([]);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [filteredContacts, setFilteredContacts] = useState([]);
@@ -162,4 +162,4 @@ const page = () => {
 	);
 };
 
-export default page;
+export default ChatPage;

@@ -1,17 +1,19 @@
 "use client";
-import { Moon, Sun, Plus } from "lucide-react";
+import { Moon, Sun, Plus, User, LogOut, Trash } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
+	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import ContactForm from "./forms/ContactForm";
 import { useState } from "react";
 import GroupForm from "./forms/GroupForm";
+import DeleteAccountDialog from "./dialogs/DeleteAccountDialog";
 
 const Navbar = () => {
 	const { setTheme } = useTheme();
@@ -48,23 +50,61 @@ const Navbar = () => {
 						</DropdownMenuContent>
 					</DropdownMenu>
 
-					{/* Add new button */}
 					<DropdownMenu>
 						<DropdownMenuTrigger asChild>
 							<Button variant="outline" size="icon">
-								<Plus className="min-h-[1.3rem] min-w-[1.3rem]" />
+								<User className="min-h-[1.3rem] min-w-[1.3rem]" />
 							</Button>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent align="end">
 							<DropdownMenuItem
+								asChild
 								onClick={() => setOpenDialog("contact")}
 							>
-								Contact
+								<DropdownMenu>
+									<DropdownMenuTrigger asChild>
+										<DropdownMenuItem>
+											<Plus />
+											<p>New</p>
+										</DropdownMenuItem>
+									</DropdownMenuTrigger>
+									<DropdownMenuContent align="end">
+										<DropdownMenuItem
+											onClick={() =>
+												setOpenDialog("contact")
+											}
+										>
+											Contact
+										</DropdownMenuItem>
+										<DropdownMenuItem
+											onClick={() =>
+												setOpenDialog("group")
+											}
+										>
+											Group
+										</DropdownMenuItem>
+									</DropdownMenuContent>
+								</DropdownMenu>
+							</DropdownMenuItem>
+							<DropdownMenuSeparator />
+							<DropdownMenuItem
+								className={"text-red-400"}
+								onClick={async () => {
+									await fetch("/api/users/logout/", {
+										method: "POST",
+									});
+									window.location.href = "/home";
+								}}
+							>
+								<LogOut className="text-red-400" />
+								Logout
 							</DropdownMenuItem>
 							<DropdownMenuItem
-								onClick={() => setOpenDialog("group")}
+								className={"text-red-400"}
+								onClick={(e) => e.preventDefault()}
 							>
-								Group
+								<Trash className="text-red-400" />
+								<DeleteAccountDialog />
 							</DropdownMenuItem>
 						</DropdownMenuContent>
 					</DropdownMenu>
@@ -77,10 +117,7 @@ const Navbar = () => {
 				setOpenDialog={setOpenDialog}
 			/>
 			{/* Group Dialog */}
-			<GroupForm
-				openDialog={openDialog}
-				setOpenDialog={setOpenDialog}
-			/>
+			<GroupForm openDialog={openDialog} setOpenDialog={setOpenDialog} />
 		</>
 	);
 };

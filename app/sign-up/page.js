@@ -70,8 +70,8 @@ const SignUpPage = () => {
 	}
 
 	return (
-		<main className="min-h-screen w-full bg-gray-100 dark:bg-gray-950 flex items-center justify-center overflow-hidden pt-14 px-4">
-			<div className="w-full max-w-5xl h-full md:h-[86vh] grid md:grid-cols-2 md:bg-gray-200 bg-gray-100 dark:bg-gray-900 text-white md:rounded-2xl shadow-xl">
+		<main className="min-h-screen w-full bg-gray-100 dark:bg-gray-950 flex items-center justify-center overflow-hidden pt-14 sm:px-4">
+			<div className="w-full max-w-5xl h-full md:h-[86vh] grid md:grid-cols-2 bg-white dark:bg-gray-900 text-white md:rounded-2xl shadow-xl">
 				{/* Left Panel */}
 
 				<div className="hidden md:flex flex-col justify-center items-center rounded-l-2xl bg-gradient-to-br from-blue-500 to-indigo-600 dark:from-blue-700 dark:to-indigo-800 p-8 text-center">
@@ -79,12 +79,12 @@ const SignUpPage = () => {
 						Join the Family!
 					</h2>
 					<p className="text-base text-white/90 dark:text-white/80">
-						Create your account and let's connect with everyone
+						Create your account and let&apos;s connect with everyone
 					</p>
 				</div>
 
 				{/* Right Panel (Form) */}
-				<div className="flex flex-col max-h-full overflow-y-auto px-6 sm:px-8 md:px-10 py-8 scroll-area transition-all">
+				<div className="flex flex-col max-h-full overflow-y-auto px-6 sm:px-8 md:px-10 py-8 scroll-area transition-all dark:bg-gray-800 rounded-r-2xl">
 					<style jsx global>{`
 
 
@@ -200,18 +200,18 @@ const SignUpPage = () => {
 
 								<Button
 									type="submit"
-									className="w-full mt-2 rounded-lg py-2 bg-green-600 hover:bg-green-500 dark:bg-green-700 dark:hover:bg-green-600 transition-all"
+									className="w-full mt-2 rounded-lg py-2 bg-blue-600 hover:bg-blue-500 dark:bg-blue-600 dark:hover:bg-blue-600 transition-all text-white"
 								>
 									Sign Up
 								</Button>
 							</form>
 						</Form>
 
-						<div className="mt-5 text-center text-sm text-gray-600 dark:text-gray-500">
+						<div className="mt-5 text-center text-sm text-gray-600 dark:text-gray-500 ">
 							Already have an account?{" "}
 							<a
 								href="/login"
-								className="text-green-500 hover:underline"
+								className="text-blue-500 hover:underline"
 							>
 								Sign in
 							</a>

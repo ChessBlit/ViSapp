@@ -39,7 +39,7 @@ const AcceptClient = ({ url }) => {
 				setIsLoading(false);
 			}
 		})();
-	}, []);
+	}, [url]);
 
 	return (
 		<main className="min-h-screen bg-gray-50 dark:bg-gray-900 py-20 px-4 sm:px-6 lg:px-8 flex items-center">
@@ -92,7 +92,7 @@ const AcceptClient = ({ url }) => {
 								</li>
 								<li className="flex items-start gap-2">
 									<span className="text-blue-500 dark:text-blue-400">•</span>
-									<span>Make sure you're logged in to your account</span>
+									<span>Make sure you&apos;re logged in to your account</span>
 								</li>
 								<li className="flex items-start gap-2">
 									<span className="text-blue-500 dark:text-blue-400">•</span>

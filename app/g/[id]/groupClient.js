@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { messageSchema } from "@/schemas/message.schema";
@@ -36,7 +36,7 @@ const GroupClient = ({ userString, groupString }) => {
 		},
 	});
 
-	async function fetchMessages() {
+	const fetchMessages = useCallback(async() => {
 		const myHeaders = new Headers();
 
 		const requestOptions = {
@@ -55,7 +55,7 @@ const GroupClient = ({ userString, groupString }) => {
 		} catch (error) {
 			console.error(error);
 		}
-	}
+	}, [group._id])
 
 	async function onSubmit(values) {
 		const myHeaders = new Headers();
@@ -105,7 +105,7 @@ const GroupClient = ({ userString, groupString }) => {
 		return () => {
 			pusherClient.unsubscribe("chat-channel");
 		};
-	}, []);
+	}, [fetchMessages, user?._id]);
 
 	useEffect(() => {
 		scrollToBottom();

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { messageSchema } from "@/schemas/message.schema";
@@ -57,7 +57,7 @@ const ChatClient = ({ userString }) => {
 		}
 	}
 
-	async function fetchMessages() {
+	const fetchMessages = useCallback(async () => {
 		const requestOptions = {
 			method: "POST",
 			redirect: "follow",
@@ -73,7 +73,7 @@ const ChatClient = ({ userString }) => {
 		} catch (error) {
 			console.error(error);
 		}
-	}
+	}, [user._id])
 
 	function scrollToBottom() {
 		if (bottomRef.current) {
@@ -96,7 +96,7 @@ const ChatClient = ({ userString }) => {
 		return () => {
 			pusherClient.unsubscribe("chat-channel");
 		};
-	}, []);
+	}, [fetchMessages, user?._id]);
 	useEffect(() => {
 		scrollToBottom();
 	}, [messages]);
