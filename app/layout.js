@@ -33,7 +33,7 @@ export default function RootLayout({ children }) {
 				>
 					<Navbar />
 					{children}
-					<Toaster />
+					<Toaster className="flex z-50" />
 				</ThemeProvider>
 			</body>
 		</html>

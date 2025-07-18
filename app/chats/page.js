@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { MessageCircle, Search, Users, ChevronRight } from "lucide-react";
+import { Search, Users, ChevronRight } from "lucide-react";
 
 const page = () => {
 	const [contacts, setContacts] = useState([]);
@@ -144,10 +144,7 @@ const page = () => {
 											</div>
 
 											{/* Action Indicators */}
-											<div className="flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-												<div className="p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
-													<MessageCircle className="w-4 h-4 text-blue-500 dark:text-blue-400" />
-												</div>
+											<div className="flex items-center space-x-2">
 												<ChevronRight className="w-5 h-5 text-gray-400 dark:text-gray-500" />
 											</div>
 										</div>

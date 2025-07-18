@@ -132,7 +132,7 @@ const GroupClient = ({ userString, groupString }) => {
 					</div>
 
 					{/* Menu */}
-					<Menu id={group._id} />
+					<Menu group={group} user={user} />
 				</div>
 			</div>
 

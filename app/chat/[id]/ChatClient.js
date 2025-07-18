@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { pusherClient } from "@/lib/pusherClient";
 import { Send, User } from "lucide-react";
 import Link from "next/link";
+import ClientMenu from "@/components/Menus/ChatMenu";
 
 const ChatClient = ({ userString }) => {
 	const [messages, setMessages] = useState([]);
@@ -105,7 +106,10 @@ const ChatClient = ({ userString }) => {
 			{/* Header */}
 			<div className="sticky top-0 z-50 bg-white dark:bg-gray-800 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700 px-4 sm:px-6 py-3 shadow-sm">
 				<div className="max-w-5xl mx-auto flex items-center justify-between">
-					<Link href={"/details/" + user._id} className="flex items-center space-x-3">
+					<Link
+						href={"/details/" + user._id}
+						className="flex items-center space-x-3"
+					>
 						<div className="p-2 bg-gradient-to-r from-green-500 to-green-600 dark:from-green-600 dark:to-green-700 rounded-xl shadow-lg">
 							<User />
 						</div>
@@ -115,7 +119,7 @@ const ChatClient = ({ userString }) => {
 							</h1>
 						</div>
 					</Link>
-
+					<ClientMenu user={user} />
 				</div>
 			</div>
 			{/* Messages Container */}
